@@ -8,8 +8,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 // Import routes
-const workoutRoutes = require("./routers/workouts");
-const userRoutes = require("./routers/user");
+const workoutRoutes = require("./routers/workouts").default;
+const userRoutes = require("./routers/user").default;
 
 // Load environment variables from .env file
 dotenv.config();
