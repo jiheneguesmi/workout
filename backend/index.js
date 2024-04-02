@@ -1,3 +1,6 @@
+const fs = require('fs');
+console.log(fs.readdirSync('./routers'));
+
 // Import required modules
 const dotenv = require("dotenv");
 const express = require("express");
