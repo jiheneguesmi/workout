@@ -37,7 +37,7 @@ app.use("/api/user", userRoutes);
 
 // Connect to MongoDB database
 mongoose
-  .connect(process.env.MONG_URI || "default_connection_string", {
+  .connect(process.env.MONGO_URI || "default_connection_string", {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
