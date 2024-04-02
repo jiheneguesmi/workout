@@ -1,26 +1,29 @@
-import * as dotenv from "dotenv";
-import express from "express";
-import * as mongoose from "mongoose";
-import cors from "cors";
+// Import required modules using CommonJS syntax
+const dotenv = require("dotenv");
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
 
-import workoutRoutes from "./routers/workouts";
-import userRoutes from "./routers/user";
+// Import routes
+const workoutRoutes = require("./routers/workouts");
+const userRoutes = require("./routers/user");
 
+// Load environment variables from .env file
 dotenv.config();
 
+// Create an Express application
 const app = express();
 const port = process.env.PORT || 8000;
 
-// middleware
-app.use(cors()); // This enables CORS for all routes
-
+// Middleware
+app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
 
-// routes
+// Define routes
 app.get("/", (req, res) => {
   res.json("hello");
 });
@@ -32,15 +35,16 @@ app.get("/api", (req, res) => {
 app.use("/api/workouts", workoutRoutes);
 app.use("/api/user", userRoutes);
 
-// connect to DB
+// Connect to MongoDB database
 mongoose
-  .connect(process.env.MONG_URI ?? "default_connection_string")
+  .connect(process.env.MONG_URI || "default_connection_string", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
   .then(() => {
-    // listen for requests
+    // Start the Express server
     app.listen(port, () => {
-      console.log(
-        `Connected to database and service listening on port ${port}`
-      );
+      console.log(`Connected to database and service listening on port ${port}`);
     });
   })
   .catch((err) => {
