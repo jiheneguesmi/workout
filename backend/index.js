@@ -1,4 +1,4 @@
-// Import required modules using CommonJS syntax
+// Import required modules
 const dotenv = require("dotenv");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -37,7 +37,7 @@ app.use("/api/user", userRoutes);
 
 // Connect to MongoDB database
 mongoose
-  .connect(process.env.MONGO_URI || "default_connection_string", {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
